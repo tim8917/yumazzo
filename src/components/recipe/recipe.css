@@ -1,0 +1,7 @@
+.detailsItemContainer:nth-child(4n+3) .detailsItemValue,
+.detailsItemContainer:nth-child(4n+4) .detailsItemValue
+{
+    background: -webkit-linear-gradient(136deg, #FF4869 50%, #FFBF43 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
