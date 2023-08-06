@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 const DEFAULT_SIZE = 24;
 
 interface ICountryIconProps {
-    src: string,
+    src?: string,
     alt: string;
     height?: number;
     width?: number;

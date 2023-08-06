@@ -2,5 +2,10 @@
   background-color: #0D1119;
   padding: 24px;
   width: 410px;
+
+  /* TODO Google Chrome Extension have limitation on styling of look and feel of the extension viewport.
+      Probably some hack can be applied later in order to style round border corners.
+      */
   /*border-radius: 10px;*/
+
 }

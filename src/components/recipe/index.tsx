@@ -3,26 +3,7 @@ import styled from '@emotion/styled';
 import {universalColors} from "../../themes/universal-colors";
 import {CountryCode, CountryIcon} from "../country-icon";
 import './recipe.css';
-
-enum Difficulty {
-    Easy,
-    Medium,
-    Hard,
-}
-
-interface Recipe {
-    authenticity: string;
-    name: string;
-    cookingOil: string;
-    description: string;
-    difficulty: Difficulty;
-    origin: string;
-    protein: string;
-    serves: number;
-    spice: string;
-    stock: string;
-    volume: number;
-}
+import {Difficulty, Recipe} from "../../model";
 
 interface IRecipeProps {
     recipe: Recipe;
@@ -30,7 +11,7 @@ interface IRecipeProps {
 
 const RecipeDescription = styled.div`
     background: ${universalColors.neutral_80};
-    border-radius: 6px;
+    border-radius: 16px;
     padding: 10px;
     margin-bottom: 24px;
 `;
@@ -59,6 +40,7 @@ const RecipeTitle = styled.h2`
     font-size: 14px;
     font-weight: 500;
     margin: 0 0 24px;
+    margin-left: 1px;
 `;
 
 const RecipeName = styled.span`
@@ -111,7 +93,7 @@ const DetailsItem: React.FC<IDetailsItemProps> = (props) => {
     );
 };
 
-export const Recipe: React.FC<IRecipeProps> = ({recipe}) => {
+export const RecipeComponent: React.FC<IRecipeProps> = ({recipe}) => {
     return (
         <div>
             <RecipeTitle>

@@ -9,7 +9,7 @@ const root = document.createElement('div');
 root.className = "container";
 
 const styleElement = document.createElement('style');
-styleElement.id = 'remove-scroll-style';
+styleElement.id = 'foundation-style';
 styleElement.textContent =
     `
         * {
@@ -22,14 +22,10 @@ styleElement.textContent =
         }
     
         html, body, .container {
-          background: transparent !important;
+          background-color: #0D1119 !important;
           box-shadow: none !important;
-          border: 0 !important;
+          border: 6px !important;
           outline: 0 !important;
-        }
-        
-        .container {
-            min-height: 700px important;
         }
     
         html::-webkit-scrollbar, body::-webkit-scrollbar {

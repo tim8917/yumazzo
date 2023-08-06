@@ -1,38 +1,8 @@
 import './App.css';
-import {createTheme, ThemeProvider} from "@mui/material";
-import {universalColors} from "./themes/universal-colors";
+import {ThemeProvider} from "@mui/material";
 import {Search} from "./components/search";
-import {Recipe} from "./components/recipe";
-
-const theme = createTheme({
-    components: {
-        // Name of the component
-        MuiInputBase: {
-            styleOverrides: {
-                // Name of the slot
-                input: {
-                    color: universalColors.white,
-                    '&::placeholder': {
-                        color: universalColors.neutral_20,
-                    },
-
-                    fontSize: '16px',
-                    fontWeight: 400,
-                    lineHeight: '150%',
-                },
-                root: {
-                    border: `1px solid ${universalColors.neutral_60}`,
-                    backgroundColor: '#131823',
-                    '&::focus': {
-                        border: `4px solid #B89FFF`
-                    },
-                    borderRadius: '6px',
-                },
-
-            },
-        },
-    },
-});
+import {theme} from "./themes/theme";
+import {RecipeComponent} from "./components/recipe";
 
 const recipe = {
     "name": "Spanish Paella",
@@ -54,7 +24,7 @@ function App() {
       <ThemeProvider theme={theme}>
           <div className="App">
               <Search />
-              <Recipe recipe={recipe} />
+              <RecipeComponent recipe={recipe} />
           </div>
       </ThemeProvider>
   );
