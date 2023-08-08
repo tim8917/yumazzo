@@ -1,36 +1,15 @@
-import React from "react";
+import React, {Dispatch, SetStateAction, useState} from "react";
 import {Autocomplete, Box, Paper, TextField} from "@mui/material";
 import {SearchIcon} from "../svg-icons/SearchIcon";
 import styled from "@emotion/styled";
 import {universalColors} from "../../themes/universal-colors";
 import {Recipe} from "../../model";
 import {MenuItem} from "../menu-item";
+import {getRecipes} from "../../api/get-recipes";
 
 const Parent = styled.div`
     margin-bottom: 24px;
 `;
-
-const options: readonly Recipe[] = [
-    {
-        "origin": "th",
-        "name": "Thai Curry",
-        "difficulty": 2,
-        "time": 35,
-    },
-    {
-        "origin": "in",
-        "name": "Indian Curry",
-        "difficulty": 1,
-        "time": 30,
-    },
-    {
-        "origin": "vn",
-        "name": "Vietnamese Curry",
-        "difficulty": 0,
-        "time": 115,
-    },
-];
-
 
 const CustomPaper: React.FC<React.ComponentProps<typeof Paper>> = (props) => {
     return (
@@ -47,19 +26,47 @@ const CustomPaper: React.FC<React.ComponentProps<typeof Paper>> = (props) => {
     );
 };
 
-export function Search() {
+interface ISearchProps {
+    setCurrentRecipe: Dispatch<SetStateAction<Recipe | undefined>>
+}
+
+export const Search: React.FC<ISearchProps> = ({setCurrentRecipe}) => {
+    const [options, setOptions] = useState<Recipe[]>([])
+    const [inputValue, setInputValue] = React.useState("");
+
     return (
         <Parent>
             <Autocomplete
-                // open={true}
+                freeSolo={true}
+                getOptionLabel={() => inputValue}
+
                 disableClearable={true}
-                options={options}
-                getOptionLabel={() => ''}
-                renderOption={(props, option) => {
+                options={inputValue ? options : []}
+                filterOptions={(options) => options}
+                isOptionEqualToValue={(option: Recipe, value: Recipe) => option.id === value.id}
+                onInputChange={(e, value, reason) => {
+                    if (reason === 'input') {
+                        setInputValue(value);
+
+                        if (value) {
+                            getRecipes({nameContains: value}).then((result) => {
+                                if (result) {
+                                    setOptions(result);
+                                }
+                            });
+                        }
+                    }
+
+                }}
+                onChange={(e, value: Recipe | string) => {
+                    if (typeof value === 'object') {
+                        setCurrentRecipe(value);
+                    }
+                }}
+                renderOption={(props, option: Recipe) => {
                     return (
-                        <Box component="li" {...props} key={option.name}>
+                        <Box component="li" {...props} key={option.id}>
                             <MenuItem recipe={option} />
-                            {/*{option.name}*/}
                         </Box>
                     );
                 }}
@@ -68,11 +75,9 @@ export function Search() {
                     <TextField
                         {...params}
                         placeholder="Search cuisine"
-                        // inputProps={{
-                        //     ...params.inputProps,
-                        // }}
                         InputProps={{
                             ...params.InputProps,
+                            autoFocus: true,
                             startAdornment: (
                                 <SearchIcon />
                             ),

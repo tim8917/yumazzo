@@ -13,9 +13,23 @@ export const theme = createTheme({
                 root: {
                     '.MuiInputBase-root.MuiOutlinedInput-root  .MuiAutocomplete-input': {
                         padding: '0 24px 0 10px',
-                    }
+                    },
                 },
                 listbox: {
+                    '&::-webkit-scrollbar': {
+                        width: '12px',
+                        backgroundColor: '#121826',
+                        marginRight: '2px',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        borderRadius: '10px',
+                        WebkitBoxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.9)',
+                        backgroundColor: '#131823',
+                        marginRight: '2px',
+                    },
+                    // '&::-webkit-scrollbar-button': {
+                    //     backgroundColor: '#131823',
+                    // },
                     padding: '8px',
                     '& .MuiAutocomplete-option': {
                         padding: '6px 8px',

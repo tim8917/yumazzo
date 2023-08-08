@@ -3,7 +3,7 @@ import {PngIcon} from "../png-icon";
 import {SpIcon, ThIcon, InIcon, VnIcon} from "../png-icons";
 
 interface ICountryIconProps {
-    code: CountryCode;
+    code: string;
 }
 
 export type CountryCode =
@@ -21,11 +21,15 @@ const map: Partial<Record<CountryCode, () => JSX.Element>> = {
 };
 
 export const CountryIcon: React.FC<ICountryIconProps> = ({code}) => {
-    const Icon = map[code];
+    if (!code) {
+        return null;
+    }
+
+    const Icon = map[code.toLowerCase() as CountryCode];
 
     if (!Icon) {
         return (
-            <PngIcon src={Icon} alt={`${code}-flag`} />
+            <PngIcon alt={code} title={code} />
         );
     }
 

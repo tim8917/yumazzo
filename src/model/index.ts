@@ -3,6 +3,7 @@ import {SvgIconProps} from "@mui/material";
 import {SquareCutGreenIcon, SquareCutOrangeIcon, SquareCutRedIcon} from "../components/svg-icons";
 
 export interface Recipe {
+    id: number,
     origin: string;
     name: string;
     difficulty: Difficulty;

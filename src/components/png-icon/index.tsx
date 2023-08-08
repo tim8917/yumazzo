@@ -3,26 +3,19 @@ import styled from "@emotion/styled";
 
 const DEFAULT_SIZE = 24;
 
-interface ICountryIconProps {
-    src?: string,
-    alt: string;
-    height?: number;
-    width?: number;
-}
-
 const Image = styled.img`
     vertical-align: middle;
+    font-size: 10px;
 `;
 
-export const PngIcon: React.FC<ICountryIconProps> = (props) => {
+export const PngIcon: React.FC<React.ComponentProps<'img'>> = (props) => {
     const {
-        src,
-        alt,
         height = DEFAULT_SIZE,
         width = DEFAULT_SIZE,
+        ...restProps
     } = props;
 
     return (
-        <Image src={src} alt={alt} height={height} width={width} />
+        <Image {...restProps} height={height} width={width} />
     );
 };

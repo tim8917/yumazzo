@@ -6,7 +6,7 @@ import './recipe.css';
 import {Difficulty, Recipe} from "../../model";
 
 interface IRecipeProps {
-    recipe: Recipe;
+    recipe?: Recipe;
 }
 
 const RecipeDescription = styled.div`
@@ -94,6 +94,10 @@ const DetailsItem: React.FC<IDetailsItemProps> = (props) => {
 };
 
 export const RecipeComponent: React.FC<IRecipeProps> = ({recipe}) => {
+    if (!recipe) {
+        return null;
+    }
+
     return (
         <div>
             <RecipeTitle>

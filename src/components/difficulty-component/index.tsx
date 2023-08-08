@@ -3,10 +3,14 @@ import {Difficulty, DifficultyIconMap} from "../../model";
 import {Box} from "@mui/material";
 
 interface IDifficultyProps {
-    difficulty: number | Difficulty;
+    difficulty: Difficulty;
 }
 
 export const DifficultyComponent: React.FC<IDifficultyProps> = ({difficulty}) => {
+    if (!(difficulty in Difficulty)) {
+        return null;
+    }
+
     const Icon = DifficultyIconMap[difficulty as Difficulty];
 
     return (
