@@ -1,4 +1,5 @@
 import {Recipe} from "../model";
+import {escapeRegExp} from "../utils/escape-for-regexp";
 
 const GET_RECIPES_URL = 'https://master-7rqtwti-yj2le3kr2yhmu.uk-1.platformsh.site/yumazoo/recipes';
 
@@ -23,11 +24,12 @@ export const getRecipes = async (request: RecipesRequest): Promise<RecipesRespon
     });
 
     const data = await response.json();
+    const escapedNameContains = escapeRegExp(nameContains);
 
     let result: Recipe[] = [];
 
     data?.message?.forEach((recipe: Recipe, index: number) => {
-        if (new RegExp(nameContains, 'i').test(recipe.name)) {
+        if (new RegExp(escapedNameContains, 'i').test(recipe.name)) {
             recipe.id = index;
             result.push(recipe);
         }

@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import styled from '@emotion/styled';
 import {universalColors} from "../../themes/universal-colors";
 import {CountryCode, CountryIcon} from "../country-icon";
 import './recipe.css';
 import {Difficulty, Recipe} from "../../model";
+import {Box} from "@mui/material";
 
 interface IRecipeProps {
     recipe?: Recipe;
@@ -16,15 +17,8 @@ const RecipeDescription = styled.div`
     margin-bottom: 24px;
 `;
 
-const ParentInner = styled.div`
-    background: ${universalColors.teal_60};
-    border-radius: 6px;
-    padding: 10px 20px;   
-`;
-
 const RecipeDescriptionTitle = styled.h2`
     margin: 0 0 16px;
-    color: ${universalColors.neutral_100};
     font-size: 18px;
     font-weight: 700;
     line-height: 32px;
@@ -93,7 +87,24 @@ const DetailsItem: React.FC<IDetailsItemProps> = (props) => {
     );
 };
 
+const descriptionToggleStyles = [
+    {
+        backgroundColor: universalColors.teal_60,
+        color: universalColors.neutral_100,
+    },
+    {
+        backgroundColor: '#41479B',
+        color: universalColors.white,
+    },
+];
+
 export const RecipeComponent: React.FC<IRecipeProps> = ({recipe}) => {
+    const descriptionStyleIndex = useRef<number>(0);
+
+    useEffect(() => {
+        descriptionStyleIndex.current = (descriptionStyleIndex.current + 1) % descriptionToggleStyles.length;
+    }, [recipe]);
+
     if (!recipe) {
         return null;
     }
@@ -105,10 +116,17 @@ export const RecipeComponent: React.FC<IRecipeProps> = ({recipe}) => {
                 <RecipeName>{recipe.name}</RecipeName>
             </RecipeTitle>
             <RecipeDescription>
-                <ParentInner>
+                <Box sx={
+                    Object.assign({
+                        backgroundColor: universalColors.teal_60,
+                        color: universalColors.neutral_100,
+                        borderRadius: '6px',
+                        padding: '10px 20px',
+                    }, descriptionToggleStyles[descriptionStyleIndex.current])
+                }>
                     <RecipeDescriptionTitle>{`Difficulty: ${Difficulty[recipe.difficulty]}`}</RecipeDescriptionTitle>
                     <RecipeDescriptionContent>{recipe.description}</RecipeDescriptionContent>
-                </ParentInner>
+                </Box>
             </RecipeDescription>
             <RecipeDetails>
                 <DetailsItem

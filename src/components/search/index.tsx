@@ -1,11 +1,12 @@
 import React, {Dispatch, SetStateAction, useState} from "react";
-import {Autocomplete, Box, Paper, TextField} from "@mui/material";
+import {Autocomplete, Box, debounce, Paper, TextField} from "@mui/material";
 import {SearchIcon} from "../svg-icons/SearchIcon";
 import styled from "@emotion/styled";
 import {universalColors} from "../../themes/universal-colors";
 import {Recipe} from "../../model";
 import {MenuItem} from "../menu-item";
 import {getRecipes} from "../../api/get-recipes";
+import {AutocompleteInputChangeReason} from "@mui/base/useAutocomplete/useAutocomplete";
 
 const Parent = styled.div`
     margin-bottom: 24px;
@@ -32,32 +33,30 @@ interface ISearchProps {
 
 export const Search: React.FC<ISearchProps> = ({setCurrentRecipe}) => {
     const [options, setOptions] = useState<Recipe[]>([])
-    const [inputValue, setInputValue] = React.useState("");
+    const [inputValue, setInputValue] = React.useState('');
+
+    const searchRecipes = async (value: string) =>
+        await getRecipes({nameContains: value})
+            .then((result) => setOptions(result));
+
+    const onInputChange = async (e: React.SyntheticEvent, value: string, reason: AutocompleteInputChangeReason) => {
+        if (reason === 'input') {
+            setInputValue(value);
+
+            if (value) {
+                await searchRecipes(value);
+            }
+        }
+    };
 
     return (
         <Parent>
             <Autocomplete
-                freeSolo={true}
                 getOptionLabel={() => inputValue}
-
-                disableClearable={true}
                 options={inputValue ? options : []}
                 filterOptions={(options) => options}
                 isOptionEqualToValue={(option: Recipe, value: Recipe) => option.id === value.id}
-                onInputChange={(e, value, reason) => {
-                    if (reason === 'input') {
-                        setInputValue(value);
-
-                        if (value) {
-                            getRecipes({nameContains: value}).then((result) => {
-                                if (result) {
-                                    setOptions(result);
-                                }
-                            });
-                        }
-                    }
-
-                }}
+                onInputChange={debounce(onInputChange, 500)}
                 onChange={(e, value: Recipe | string) => {
                     if (typeof value === 'object') {
                         setCurrentRecipe(value);
@@ -86,6 +85,9 @@ export const Search: React.FC<ISearchProps> = ({setCurrentRecipe}) => {
                         fullWidth={true}
                     />
                 )}
+                freeSolo={true}
+                disableClearable={true}
+                selectOnFocus={true}
             />
         </Parent>
     );
