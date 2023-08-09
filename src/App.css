@@ -1,8 +1,10 @@
 .App {
   background-color: #0D1119;
-  padding: 24px;
   width: 410px;
-  min-height: 630px;
+
+  /* TODO Ideally to have 630px, but height of 600px is the limit
+   */
+  min-height: 600px;
 
   /* TODO Google Chrome Extension have limitation on styling of look and feel of the extension viewport.
       Probably some hack can be applied later in order to style round border corners.

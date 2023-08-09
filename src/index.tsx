@@ -4,6 +4,7 @@ import App from './App';
 
 import './fonts.css';
 import './index.css';
+import './scrollbar.css';
 
 const root = document.createElement('div');
 root.className = "container";

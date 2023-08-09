@@ -1,7 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import styled from '@emotion/styled';
 import {universalColors} from "../../themes/universal-colors";
-import {CountryCode, CountryIcon} from "../country-icon";
 import './recipe.css';
 import {Difficulty, Recipe} from "../../model";
 import {Box} from "@mui/material";
@@ -28,21 +27,6 @@ const RecipeDescriptionContent = styled.p`
     margin: 0;
 `;
 
-const RecipeTitle = styled.h2`
-    color: ${universalColors.white};
-    font-family: 'Bai Jamjuree', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    margin: 0 0 24px;
-    margin-left: 1px;
-`;
-
-const RecipeName = styled.span`
-    margin-left: 10px;
-    line-height: 25px;
-    vertical-align: -1px;
-`;
-
 const RecipeDetails = styled.div`
     background: ${universalColors.neutral_80};
     border-radius: 6px;
@@ -52,6 +36,7 @@ const RecipeDetails = styled.div`
     flex-wrap: wrap;
     column-gap: 24px;
     row-gap: 12px;
+    margin-bottom: 24px;
 `;
 
 const DetailsItemContainer = styled.div`
@@ -110,11 +95,9 @@ export const RecipeComponent: React.FC<IRecipeProps> = ({recipe}) => {
     }
 
     return (
-        <div>
-            <RecipeTitle>
-                <CountryIcon code={recipe.origin as CountryCode} />
-                <RecipeName>{recipe.name}</RecipeName>
-            </RecipeTitle>
+        <Box sx={{
+            padding: '12px 24px 0',
+        }}>
             <RecipeDescription>
                 <Box sx={
                     Object.assign({
@@ -161,6 +144,6 @@ export const RecipeComponent: React.FC<IRecipeProps> = ({recipe}) => {
                     value={recipe.stock}
                 />
             </RecipeDetails>
-        </div>
+        </Box>
     );
 }

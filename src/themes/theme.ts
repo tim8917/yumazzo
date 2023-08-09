@@ -16,20 +16,6 @@ export const theme = createTheme({
                     },
                 },
                 listbox: {
-                    '&::-webkit-scrollbar': {
-                        width: '12px',
-                        backgroundColor: '#121826',
-                        marginRight: '2px',
-                    },
-                    '&::-webkit-scrollbar-thumb': {
-                        borderRadius: '10px',
-                        WebkitBoxShadow: 'inset 0 0 6px rgba(0, 0, 0, 0.9)',
-                        backgroundColor: '#131823',
-                        marginRight: '2px',
-                    },
-                    // '&::-webkit-scrollbar-button': {
-                    //     backgroundColor: '#131823',
-                    // },
                     padding: '8px',
                     '& .MuiAutocomplete-option': {
                         padding: '6px 8px',
@@ -51,6 +37,27 @@ export const theme = createTheme({
                             backgroundColor: '#181F30',
                             borderRadius: '6px',
                             padding: '6px 8px',
+                        },
+                    },
+                },
+            },
+        },
+        MuiButtonBase: {
+            styleOverrides: {
+                // Name of the slot
+                root: {
+                    '&.MuiButton-root': {
+                        backgroundColor: universalColors.neutral_80,
+                        '&:hover': {
+                            backgroundColor: universalColors.neutral_70,
+                        },
+                        color: universalColors.white,
+                        textTransform: 'initial',
+                        '&.MuiButton-sizeSmall': {
+                            fontSize: '13px',
+                            fontWeight: 400,
+                            lineHeight: '24px',
+                            padding: '0 7px',
                         },
                     },
                 },

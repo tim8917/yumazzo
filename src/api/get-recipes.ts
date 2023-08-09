@@ -13,7 +13,7 @@ export const getRecipes = async (request: RecipesRequest): Promise<RecipesRespon
     const {nameContains} = request;
 
     if (!nameContains) {
-        return Promise.resolve([]);
+        return [];
     }
 
     const response = await fetch(GET_RECIPES_URL, {
@@ -22,6 +22,12 @@ export const getRecipes = async (request: RecipesRequest): Promise<RecipesRespon
             'Accept': 'application/json',
         },
     });
+
+    if (response.status !== 200) {
+        console.log('ERR!', {status: response.status, statusText: response.statusText})
+
+        return [];
+    }
 
     const data = await response.json();
     const escapedNameContains = escapeRegExp(nameContains);
