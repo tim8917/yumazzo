@@ -5,6 +5,7 @@ import {Search} from "../search";
 import styled from "@emotion/styled";
 import {universalColors} from "../../themes/universal-colors";
 import {CountryCode, CountryIcon} from "../country-icon";
+import {Link} from "wouter";
 
 interface IControlPanelProps {
     setCurrentRecipe: Dispatch<SetStateAction<Recipe | undefined>>;
@@ -20,7 +21,6 @@ const StatusPanel = styled.div`
     font-size: 14px;
     font-weight: 500;
     margin: 0;
-    // margin: 0 0 24px;
     margin-left: 1px;
 `;
 
@@ -55,11 +55,13 @@ export const ControlPanel: React.FC<IControlPanelProps> = ({setCurrentRecipe, re
                         marginLeft: 'auto',
                     }}
                 >
-                    <Button
-                        size="small"
-                    >
-                        + Add recipe
-                    </Button>
+                    <Link href="/recipes/add">
+                        <Button
+                            size="small"
+                        >
+                            + Add recipe
+                        </Button>
+                    </Link>
                 </Box>
             </StatusPanel>
         </Box>

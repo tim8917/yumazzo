@@ -5,7 +5,7 @@ import {YumazzoIcon} from "../svg-icons/YumazzoIcon";
 export function Welcome() {
     return (
         <Box sx={{
-            display: 'flex',
+                display: 'flex',
                 width: '100%',
                 height: '400px',
                 justifyContent: 'center',

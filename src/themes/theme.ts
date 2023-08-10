@@ -1,16 +1,29 @@
 import {createTheme} from "@mui/material";
 import {universalColors} from "./universal-colors";
+import {ChevronDownIcon} from "../components/svg-icons/ChevronDownIcon";
+import {FONT_FAMILY_BAI_JAMJUREE} from "../constants";
 
 export const theme = createTheme({
     components: {
         // Name of the component
+        MuiSelect: {
+            defaultProps: {
+                IconComponent: ChevronDownIcon,
+            },
+            styleOverrides: {
+                select: {
+                    display: 'flex',
+                    alignItems: 'center',
+                },
+            },
+        },
         MuiAutocomplete: {
             styleOverrides: {
                 // Name of the slot
-                inputRoot: {
-                    padding: '8px 11px !important',
-                },
                 root: {
+                    '.MuiInputBase-root.MuiOutlinedInput-root': {
+                        backgroundColor: '#131823',
+                    },
                     '.MuiInputBase-root.MuiOutlinedInput-root  .MuiAutocomplete-input': {
                         padding: '0 24px 0 10px',
                     },
@@ -67,18 +80,25 @@ export const theme = createTheme({
             styleOverrides: {
                 // Name of the slot
                 input: {
+                    '&.MuiOutlinedInput-input': {
+                        padding: 0,
+                    },
                     color: universalColors.white,
                     '&::placeholder': {
                         color: universalColors.neutral_20,
                     },
-
                     fontSize: '16px',
                     fontWeight: 400,
                     lineHeight: '150%',
                 },
                 root: {
+                    fontFamily: FONT_FAMILY_BAI_JAMJUREE,
+                    '&.MuiOutlinedInput-root': {
+                        borderRadius: '6px',
+                    },
+                    padding: '8px 11px !important',
                     border: `1px solid ${universalColors.neutral_60}`,
-                    backgroundColor: '#131823',
+                    backgroundColor: universalColors.neutral_90,
                     '&.Mui-focused': {
                         border: '1px solid #663CDD',
                         boxShadow: '0px 0px 0px 4px #B89FFF',
@@ -86,7 +106,30 @@ export const theme = createTheme({
                     '& fieldset': {
                         border: 0,
                     },
+                },
+            },
+        },
+        MuiFormLabel: {
+            styleOverrides: {
+                root: {
+                    fontFamily: FONT_FAMILY_BAI_JAMJUREE,
+                    fontSize: '16px',
+                    fontWeight: 500,
+                    paddingBottom: '10px',
+                    color: universalColors.white,
+                    '&.Mui-Focused': {
+                        color: `${universalColors.white} !important`,
+                    },
+                },
+            },
+        },
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: '#121826',
+                    color: universalColors.white,
                     borderRadius: '6px',
+                    marginTop: '11px',
                 },
             },
         },

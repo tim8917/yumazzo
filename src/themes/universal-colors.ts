@@ -6,6 +6,7 @@ export const universalColors = {
     neutral_60: '#7185AA',
     neutral_70: '#181F30',
     neutral_80: '#131823',
+    neutral_90: '#181F30',
     neutral_100: '#0D1119',
     teal_60: '#17CFC4',
 };

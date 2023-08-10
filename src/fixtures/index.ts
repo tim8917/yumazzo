@@ -1,6 +1,6 @@
 import {Recipe} from "../model";
 
-export const RECIPE_OPTIONS_FIXTURE: readonly Recipe[] = [
+export const RECIPE_OPTIONS_FIXTURE: Recipe[] = [
     {
         "id": 1,
         "origin": "th",

@@ -1,24 +1,23 @@
-import React, {useState} from "react";
+import React, {useEffect} from "react";
 import './App.css';
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./themes/theme";
-import {RecipeComponent} from "./components/recipe";
-import {Recipe} from "./model";
-import {Welcome} from "./components/welcome";
-import {ControlPanel} from "./components/control-panel";
+import {RecipeView} from "./components/recipe-view";
+import {Route, useLocation} from "wouter";
+import {AddRecipeView} from "./components/add-recipe-view";
 
 function App() {
-    const [currentRecipe, setCurrentRecipe] = useState<Recipe | undefined>();
+    const [, setLocation] = useLocation();
+
+    useEffect(() => {
+        setLocation('/');
+    }, []);
 
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
-                <ControlPanel
-                    recipe={currentRecipe}
-                    setCurrentRecipe={setCurrentRecipe}
-                />
-                <RecipeComponent recipe={currentRecipe} />
-                {!currentRecipe && <Welcome />}
+                <Route path="/" component={RecipeView} />
+                <Route path="/recipes/add" component={AddRecipeView} />
             </div>
         </ThemeProvider>
     );

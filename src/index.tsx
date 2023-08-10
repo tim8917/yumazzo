@@ -5,6 +5,7 @@ import App from './App';
 import './fonts.css';
 import './index.css';
 import './scrollbar.css';
+import {universalColors} from "./themes/universal-colors";
 
 const root = document.createElement('div');
 root.className = "container";
@@ -20,6 +21,7 @@ styleElement.textContent =
         body {
           margin: 0;
           overflow-x: hidden;
+          color: ${universalColors.white};
         }
     
         html, body, .container {
