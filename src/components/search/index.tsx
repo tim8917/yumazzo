@@ -28,7 +28,7 @@ const CustomPaper: React.FC<React.ComponentProps<typeof Paper>> = (props) => {
 };
 
 interface ISearchProps {
-    setCurrentRecipe: Dispatch<SetStateAction<Recipe | undefined>>
+    setCurrentRecipe: (recipe?: Recipe) => void;
 }
 
 export const Search: React.FC<ISearchProps> = ({setCurrentRecipe}) => {

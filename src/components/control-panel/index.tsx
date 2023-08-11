@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction} from "react";
+import React from "react";
 import {Recipe} from "../../model";
 import {Box, Button} from "@mui/material";
 import {Search} from "../search";
@@ -8,7 +8,7 @@ import {CountryCode, CountryIcon} from "../country-icon";
 import {Link} from "wouter";
 
 interface IControlPanelProps {
-    setCurrentRecipe: Dispatch<SetStateAction<Recipe | undefined>>;
+    setCurrentRecipe: (recipe?: Recipe) => void;
     recipe?: Recipe;
 }
 
@@ -39,7 +39,6 @@ export const ControlPanel: React.FC<IControlPanelProps> = ({setCurrentRecipe, re
                 padding: '24px 24px 12px',
                 backgroundColor: universalColors.neutral_100,
                 boxShadow: `0px 10px 7px -6px ${universalColors.neutral_100}`,
-
             }}
         >
             <Search setCurrentRecipe={setCurrentRecipe} />

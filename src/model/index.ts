@@ -30,3 +30,8 @@ export const DifficultyIconMap: Record<Difficulty, React.FC<SvgIconProps>> = {
     [Difficulty.Medium]: SquareCutOrangeIcon,
     [Difficulty.Hard]: SquareCutRedIcon,
 };
+
+export enum Authenticity {
+    Verified = "Verified",
+    Unverified = "Unverified"
+}

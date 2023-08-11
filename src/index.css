@@ -25,9 +25,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-textarea:focus {
-  outline: 0;
-  border: 1px solid #663CDD !important;
-  box-shadow: 0 0 0 4px #B89FFF;
-}

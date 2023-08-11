@@ -6,18 +6,21 @@ import {RecipeView} from "./components/recipe-view";
 import {Route, useLocation} from "wouter";
 import {AddRecipeView} from "./components/add-recipe-view";
 
+const PATH_HOME = '/';
+const PATH_ADD_NEW_RECIPE = '/recipes/add';
+
 function App() {
     const [, setLocation] = useLocation();
 
     useEffect(() => {
-        setLocation('/');
+        setLocation(PATH_HOME);
     }, []);
 
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
-                <Route path="/" component={RecipeView} />
-                <Route path="/recipes/add" component={AddRecipeView} />
+                <Route path={PATH_HOME} component={RecipeView} />
+                <Route path={PATH_ADD_NEW_RECIPE} component={AddRecipeView} />
             </div>
         </ThemeProvider>
     );

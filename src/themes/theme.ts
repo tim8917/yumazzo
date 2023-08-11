@@ -3,6 +3,8 @@ import {universalColors} from "./universal-colors";
 import {ChevronDownIcon} from "../components/svg-icons/ChevronDownIcon";
 import {FONT_FAMILY_BAI_JAMJUREE} from "../constants";
 
+const INPUT_HEIGHT = '22px';
+
 export const theme = createTheme({
     components: {
         // Name of the component
@@ -14,6 +16,8 @@ export const theme = createTheme({
                 select: {
                     display: 'flex',
                     alignItems: 'center',
+                    minHeight: 'initial !important',
+                    height: INPUT_HEIGHT,
                 },
             },
         },
@@ -90,6 +94,7 @@ export const theme = createTheme({
                     fontSize: '16px',
                     fontWeight: 400,
                     lineHeight: '150%',
+                    height: INPUT_HEIGHT,
                 },
                 root: {
                     fontFamily: FONT_FAMILY_BAI_JAMJUREE,
@@ -97,7 +102,7 @@ export const theme = createTheme({
                         borderRadius: '6px',
                     },
                     padding: '8px 11px !important',
-                    border: `1px solid ${universalColors.neutral_60}`,
+                    border: `1px solid #5B6178`,
                     backgroundColor: universalColors.neutral_90,
                     '&.Mui-focused': {
                         border: '1px solid #663CDD',
@@ -115,11 +120,18 @@ export const theme = createTheme({
                     fontFamily: FONT_FAMILY_BAI_JAMJUREE,
                     fontSize: '16px',
                     fontWeight: 500,
+                    letterSpacing: 0,
                     paddingBottom: '10px',
                     color: universalColors.white,
-                    '&.Mui-Focused': {
+                },
+            },
+        },
+        MuiFormControl: {
+            styleOverrides: {
+                root: {
+                    '.MuiFormLabel-root.Mui-focused': {
                         color: `${universalColors.white} !important`,
-                    },
+                    }
                 },
             },
         },

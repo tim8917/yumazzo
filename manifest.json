@@ -7,6 +7,9 @@
     "default_popup": "js/index.html",
     "default_title": "Yumazzo"
   },
+  "permissions": [
+    "storage"
+  ],
   "host_permissions": [
     "https://master-7rqtwti-yj2le3kr2yhmu.uk-1.platformsh.site/yumazoo/recipes/*"
   ],

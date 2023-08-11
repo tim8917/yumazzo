@@ -6,6 +6,7 @@ import './fonts.css';
 import './index.css';
 import './scrollbar.css';
 import {universalColors} from "./themes/universal-colors";
+import {FONT_FAMILY_BAI_JAMJUREE} from "./constants";
 
 const root = document.createElement('div');
 root.className = "container";
@@ -34,6 +35,31 @@ styleElement.textContent =
         html::-webkit-scrollbar, body::-webkit-scrollbar {
           display:none !important;
         }
+        
+        textarea {
+            background-color: ${universalColors.neutral_90};
+            color: ${universalColors.white};
+            font-family: ${FONT_FAMILY_BAI_JAMJUREE};
+            resize: vertical;
+            border: 1px solid #5B6178;
+            border-radius: 6px;
+            padding: 8px 11px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 24px;
+            min-height: 58px;
+        }
+        
+        textarea:focus {
+            outline: 0;
+            border: 1px solid #663CDD !important;
+            box-shadow: 0 0 0 4px #B89FFF;
+        }
+        
+        textarea::placeholder {
+          color: ${universalColors.neutral_60};
+        }
+        
     `;
 
 document.body.appendChild(styleElement);
