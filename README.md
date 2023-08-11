@@ -17,12 +17,12 @@ Builds the app to the `dist` directory for further uploading the app to extensio
 ## `TODO`
 
 Action items:
-- [ ] Add app state persistence
+- [ ] Add local storage persistence for "Add New Recipe" page
 - [ ] Make scroll bars on hover appear
 - [ ] Add Api Error handling
 - [ ] Check Pixel Perfect
-- [ ] Finish Add recipe page
 - [ ] Add POST request for Add recipe page
+- [ ] Add Social Icons
 
 Action Items with *:
 - [ ] Try to add Round corners 
