@@ -18,6 +18,7 @@ export const theme = createTheme({
                     alignItems: 'center',
                     minHeight: 'initial !important',
                     height: INPUT_HEIGHT,
+                    padding: '8px 11px !important',
                 },
             },
         },
@@ -85,7 +86,10 @@ export const theme = createTheme({
                 // Name of the slot
                 input: {
                     '&.MuiOutlinedInput-input': {
-                        padding: 0,
+                        padding: '8px 11px',
+                    },
+                    '&.MuiOutlinedInput-input.MuiInputBase-inputAdornedEnd': {
+                        padding: '8px 5px 8px 11px',
                     },
                     color: universalColors.white,
                     '&::placeholder': {
@@ -98,13 +102,18 @@ export const theme = createTheme({
                 },
                 root: {
                     fontFamily: FONT_FAMILY_BAI_JAMJUREE,
+                    padding: '0',
                     '&.MuiOutlinedInput-root': {
                         borderRadius: '6px',
                     },
-                    padding: '8px 11px !important',
+                    '&.MuiInputBase-adornedEnd': {
+                        paddingRight: '11px',
+                    },
                     border: `1px solid #5B6178`,
                     backgroundColor: universalColors.neutral_90,
                     '&.Mui-focused': {
+                        // outline: '1px solid #663CDD',
+                        // border: 'initial',
                         border: '1px solid #663CDD',
                         boxShadow: '0px 0px 0px 4px #B89FFF',
                     },

@@ -12,6 +12,7 @@ export interface Recipe {
     authenticity?: string;
     cookingOil?: string;
     description?: string;
+    produce?: string;
     protein?: string;
     serves?: number;
     spice?: string;

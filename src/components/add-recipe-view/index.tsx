@@ -6,14 +6,15 @@ import {
     Button,
     FormControl,
     FormLabel,
-    MenuItem, Select,
+    MenuItem,
+    Select,
     TextareaAutosize,
     TextField
 } from "@mui/material";
 import {ViewHeadline} from "../view-headline";
 import {universalColors} from "../../themes/universal-colors";
 import {FONT_FAMILY_BAI_JAMJUREE} from "../../constants";
-import {Authenticity, Difficulty} from "../../model";
+import {Authenticity, Difficulty, Recipe} from "../../model";
 import {Country} from "../../model/countries.enum";
 import {CountryIcon} from "../country-icon";
 import {StickyHeadline} from "../sticky-headline";
@@ -42,7 +43,6 @@ const InputTextAdornment = styled.span`
     font-size: 14px;
     font-weight: 300;
     line-height: 22px;
-    padding-left: 5px;
 `;
 
 const DescriptionHelper = styled.div`
@@ -56,7 +56,19 @@ const DescriptionHelper = styled.div`
 export function AddRecipeView() {
     const nodeRef = useRef(null);
     const [match, params] = useRoute("/recipes/add");
-    const [description, setDescription] = useState<string>('');
+    const [newRecipe, setNewRecipe] = useState<Partial<Recipe>>({
+        difficulty: Difficulty.Easy as number,
+        authenticity: Authenticity.Unverified,
+    });
+
+    const setValue = (key: string, value: string) => {
+        const newState = {
+            ...newRecipe,
+            [key]: value,
+        };
+
+        setNewRecipe(newState);
+    };
 
     return (
         <Transition nodeRef={nodeRef} in={match} timeout={duration} appear={true}>
@@ -94,11 +106,18 @@ export function AddRecipeView() {
                             >
                                 <FormControl>
                                     <FormLabel htmlFor="name">Name</FormLabel>
-                                    <TextField id="name" />
+                                    <TextField
+                                        id="name"
+                                        value={newRecipe.name ?? ''}
+                                        onChange={(e) => {
+                                            setValue('name', e.target.value);
+                                        }}
+                                    />
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel htmlFor="origin">Origin</FormLabel>
                                     <Select
+                                        id="origin"
                                         sx={{
                                             '& .MuiSelect-select .notranslate::after':
                                                 ORIGIN_PLACEHOLDER
@@ -109,12 +128,20 @@ export function AddRecipeView() {
                                                 }
                                                 : {},
                                         }}
+                                        value={newRecipe.origin ?? ''}
+                                        onChange={(e) => {
+                                            setValue('origin', e.target.value);
+                                        }}
                                     >
                                         {Object.keys(Country).map((key: string) => {
                                             const code = Country[key as keyof typeof Country].toLowerCase();
 
                                             return (
-                                                <MenuItem value={code} sx={{display: 'flex', alignItems: 'center'}}>
+                                                <MenuItem
+                                                    key={code}
+                                                    value={code ?? ''}
+                                                    sx={{display: 'flex', alignItems: 'center'}}
+                                                >
                                                     <CountryIcon code={code}/>
                                                     <span style={{marginLeft: '5px'}}>
                                                         {key.replace(/([a-z])([A-Z])/g, '$1 $2')}
@@ -131,13 +158,13 @@ export function AddRecipeView() {
                                         id="description"
                                         placeholder="Describe your recipe..."
                                         maxLength={DESCRIPTION_MAX_LENGTH}
-                                        value={description}
+                                        value={newRecipe.description ?? ''}
                                         onChange={(e: React.SyntheticEvent) => {
-                                            setDescription((e.target as HTMLInputElement).value);
+                                            setValue('description', (e.target as HTMLInputElement).value);
                                         }}
                                     />
                                     <DescriptionHelper>
-                                        {`${description.length}/${DESCRIPTION_MAX_LENGTH} Characters`}
+                                        {`${(newRecipe.description ?? '').length}/${DESCRIPTION_MAX_LENGTH} Characters`}
                                     </DescriptionHelper>
                                 </FormControl>
 
@@ -145,30 +172,57 @@ export function AddRecipeView() {
                                     <FormLabel htmlFor="difficulty">Difficulty</FormLabel>
                                     <Select
                                         id="difficulty"
-                                        defaultValue={Difficulty.Easy}
+                                        value={newRecipe.difficulty ?? ''}
+                                        onChange={(e) => {
+                                            setValue('difficulty', e.target.value.toString());
+                                        }}
                                     >
                                         {Object.keys(Difficulty).filter(v => !isNaN(Number(v))).map((value: string) => (
-                                            <MenuItem value={value}>{Difficulty[Number(value)]}</MenuItem>
+                                            <MenuItem key={value} value={value}>{Difficulty[Number(value)]}</MenuItem>
                                         ))}
                                     </Select>
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel htmlFor="protein">Protein</FormLabel>
-                                    <TextField id="protein" />
+                                    <TextField
+                                        id="protein"
+                                        value={newRecipe.protein ?? ''}
+                                        onChange={(e) => {
+                                            setValue('protein', e.target.value);
+                                        }}
+                                    />
                                 </FormControl>
 
                                 <FormControl>
                                     <FormLabel htmlFor="produce">Produce</FormLabel>
-                                    <TextField id="produce" />
+                                    <TextField
+                                        id="produce"
+                                        value={newRecipe.produce ?? ''}
+                                        onChange={(e) => {
+                                            setValue('produce', e.target.value);
+                                        }}
+                                    />
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel htmlFor="spice">Spice</FormLabel>
-                                    <TextField id="spice" />
+                                    <TextField
+                                        id="spice"
+                                        value={newRecipe.spice ?? ''}
+                                        onChange={(e) => {
+                                            setValue('spice', e.target.value);
+                                        }}
+                                    />
                                 </FormControl>
 
                                 <FormControl>
                                     <FormLabel htmlFor="cookingOil">Cooking Oil?</FormLabel>
-                                    <TextField id="cookingOil" />
+                                    <TextField
+                                        id="cookingOil"
+                                        value={newRecipe.cookingOil ?? ''}
+                                        onChange={(e) => {
+                                            setValue('cookingOil', e.target.value);
+                                        }}
+                                    />
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel htmlFor="volume">Volume</FormLabel>
@@ -176,6 +230,10 @@ export function AddRecipeView() {
                                         id="volume"
                                         InputProps={{
                                             endAdornment: <InputTextAdornment>grams</InputTextAdornment>
+                                        }}
+                                        value={newRecipe.volume ?? ''}
+                                        onChange={(e) => {
+                                            setValue('volume', e.target.value);
                                         }}
                                     />
                                 </FormControl>
@@ -187,16 +245,23 @@ export function AddRecipeView() {
                                         InputProps={{
                                             endAdornment: <InputTextAdornment>people</InputTextAdornment>
                                         }}
+                                        value={newRecipe.serves ?? ''}
+                                        onChange={(e) => {
+                                            setValue('serves', e.target.value);
+                                        }}
                                     />
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel htmlFor="authenticity">Authenticity</FormLabel>
                                     <Select
                                         id="authenticity"
-                                        defaultValue={Authenticity.Unverified}
+                                        value={newRecipe.authenticity ?? ''}
+                                        onChange={(e) => {
+                                            setValue('authenticity', e.target.value);
+                                        }}
                                     >
                                         {Object.keys(Authenticity).map((key: string) => (
-                                            <MenuItem value={Authenticity[key as keyof typeof Authenticity]}>
+                                            <MenuItem key={key} value={Authenticity[key as keyof typeof Authenticity]}>
                                                 {key}
                                             </MenuItem>
                                         ))}
@@ -205,7 +270,13 @@ export function AddRecipeView() {
 
                                 <FormControl>
                                     <FormLabel htmlFor="stock">Stock</FormLabel>
-                                    <TextField id="stock" />
+                                    <TextField
+                                        id="stock"
+                                        value={newRecipe.stock ?? ''}
+                                        onChange={(e) => {
+                                            setValue('stock', e.target.value);
+                                        }}
+                                    />
                                 </FormControl>
                             </Box>
 
